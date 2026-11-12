@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASMR MUKBANG — Taom yeyish o‘yini</title>
+<style>
+:root{--pink:#ff8db4;--cream:#fff5ec;--ink:#452c3b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0,#ffe2e9,#f8b9c9 60%,#e99bb6);font-family:system-ui,Arial;color:var(--ink);display:flex;justify-content:center;align-items:center;padding:16px}
+.app{width:min(100%,920px);background:#fff9f5eF;border:1px solid #fff;border-radius:28px;box-shadow:0 25px 80px #8d416044;overflow:hidden}
+header{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #f5d9df}
+.logo{font-weight:1000;letter-spacing:2px;color:#e45d91}.logo span{color:#8f5874}
+.pill{background:#ffe4ec;border-radius:30px;padding:8px 13px;font-size:12px;font-weight:800}
+main{padding:20px;display:grid;grid-template-columns:1.25fr .75fr;gap:20px}
+.scene{min-height:440px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(#f9c9d7 0 48%,#f3aebf 48% 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:20px}
+.curtain{position:absolute;inset:0 0 auto;height:42%;background:repeating-linear-gradient(90deg,#f7b6ca 0 34px,#f9c7d6 34px 68px);opacity:.65}
+.sign{position:absolute;top:18px;background:#fff8f0;border:3px solid #f4a4bd;padding:8px 18px;border-radius:14px;font-weight:1000;letter-spacing:3px;color:#d95e8c;box-shadow:0 5px 0 #e89bb4}
+.person{position:absolute;top:72px;width:150px;height:172px;z-index:1}
+.hair{position:absolute;top:0;left:12px;width:126px;height:82px;border-radius:65px 65px 35px 35px;background:#49323b}
+.face{position:absolute;top:25px;left:17px;width:116px;height:132px;border-radius:48% 48% 46% 46%;background:#ffd2b8;box-shadow:inset 0 -5px 0 #f2b69e}
+.eye{position:absolute;top:58px;width:8px;height:12px;border-radius:50%;background:#49323b}.eye.l{left:43px}.eye.r{right:43px}
+.blush{position:absolute;top:86px;width:20px;height:10px;border-radius:50%;background:#f58ca0;opacity:.65}.blush.l{left:18px}.blush.r{right:18px}
+.mouth{position:absolute;top:94px;left:49px;width:18px;height:16px;border-radius:5px 5px 12px 12px;background:#a9435c;transition:.15s}
+.body{position:absolute;bottom:-35px;left:-18px;width:186px;height:105px;border-radius:70px 70px 0 0;background:#fff4ed;border:5px solid #f4b5c8}
+.table{position:relative;z-index:2;width:100%;height:145px;border-radius:50% 50% 18px 18px / 22% 22% 18px 18px;background:linear-gradient(#bd795f,#92553f);box-shadow:0 -9px 0 #e7a28b,0 12px 18px #75432d55;display:flex;align-items:center;justify-content:center}
+.plate{width:270px;height:115px;border-radius:50%;background:radial-gradient(ellipse,#fff 0 58%,#e8e4e4 60% 67%,#fff 69%);box-shadow:0 8px 12px #57372b55;display:flex;align-items:center;justify-content:center;font-size:76px;position:relative;transition:.15s}
+.foodEmoji{filter:drop-shadow(0 5px 3px #633a2c33);transform:rotate(-7deg);transition:.2s}
+.foodEmoji.bite{transform:scale(.82) rotate(12deg);opacity:.8}
+.eatPop{position:absolute;top:-10px;font-size:25px;opacity:0;animation:none}
+.eatPop.show{animation:pop .7s ease-out}
+@keyframes pop{0%{opacity:0;transform:translateY(15px) scale(.5)}30%{opacity:1}100%{opacity:0;transform:translateY(-45px) scale(1.3)}}
+.side{display:flex;flex-direction:column;gap:14px}
+.card{background:#fff;border:1px solid #f3dce2;border-radius:18px;padding:16px}
+.card h3{margin:0 0 12px;font-size:14px;letter-spacing:1px}
+.foods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.food{border:2px solid transparent;background:#fff5f7;border-radius:13px;padding:9px 3px;cursor:pointer;color:var(--ink);font-weight:800;font-size:11px}
+.food .emoji{display:block;font-size:30px;margin-bottom:3px}
+.food.active{border-color:#ed79a1;background:#ffe6ee;box-shadow:0 3px 0 #f1bfd0}
+.meter{height:12px;border-radius:20px;background:#f6e4e9;overflow:hidden;margin:8px 0}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#ff9ab8,#f05c91);border-radius:20px;transition:width .2s}
+.scoreline{display:flex;justify-content:space-between;font-size:12px;color:#8c6b7a}
+.controls{display:flex;gap:8px;margin-top:12px}
+button.action{border:0;border-radius:12px;padding:12px 10px;font-weight:900;cursor:pointer;flex:1;background:#ed6e9b;color:white;box-shadow:0 4px 0 #c44c79}
+button.action.secondary{background:#fff0f5;color:#9d486b;box-shadow:0 4px 0 #e8c5d1}
+button:active{transform:translateY(3px);box-shadow:none!important}
+.soundrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin:9px 0}
+input[type=range]{width:100%;accent-color:#e96695}
+.tip{font-size:11px;color:#9a7c8b;line-height:1.5}
+footer{text-align:center;padding:0 18px 18px;color:#a17d8d;font-size:11px}
+@media(max-width:700px){main{grid-template-columns:1fr;padding:12px;gap:12px}.scene{min-height:390px}.side{display:grid;grid-template-columns:1fr}.person{top:65px}header{padding:15px}.plate{width:240px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">🍓 ASMR <span>MUKBANG</span></div><div class="pill">✨ RELAX & EAT</div></header>
+<main>
+<section class="scene">
+ <div class="curtain"></div><div class="sign">YUMMY TIME</div>
+ <div class="person"><div class="hair"></div><div class="face"><i class="eye l"></i><i class="eye r"></i><i class="blush l"></i><i class="blush r"></i><i class="mouth" id="mouth"></i></div><div class="body"></div></div>
+ <div class="table"><div class="plate"><span class="foodEmoji" id="foodEmoji">🍓</span><span class="eatPop" id="pop">✨ NOM!</span></div></div>
+</section>
+<aside class="side">
+ <div class="card"><h3>🍽️ MENYU — TAOM TANLA</h3><div class="foods" id="foods"></div></div>
+ <div class="card">
+  <h3>😋 YEB TUGATISH</h3>
+  <div class="scoreline"><span>Taom miqdori</span><b id="percent">0%</b></div><div class="meter"><div class="fill" id="fill"></div></div>
+  <div class="scoreline"><span>Yig‘ilgan ball</span><b id="score">0</b></div>
+  <div class="controls"><button class="action" id="eat">🍴 BIR TISHLA!</button><button class="action secondary" id="reset">Qayta</button></div>
+ </div>
+ <div class="card">
+  <h3>🎧 ASMR OVOZLARI</h3>
+  <div class="soundrow"><label for="volume">Ovoz balandligi</label><b id="volLabel">60%</b></div>
+  <input id="volume" type="range" min="0" max="100" value="60">
+  <div class="soundrow"><span>🔊 Qarsillash va chaynash</span><b id="soundState">YOQILGAN</b></div>
+  <button class="action secondary" id="soundToggle" style="width:100%">Ovozni o‘chirish</button>
+  <p class="tip">Har safar “Bir tishla!” tugmasini bosing — taom kichrayadi va ASMR ovozi eshitiladi. Taomni tugatsangiz yangi taom tanlang!</p>
+ </div>
+</aside>
+</main>
+<footer>ASMR MUKBANG • O‘yin ichidagi ovozlar brauzerda yaratiladi • Naushnik bilan yanada yoqimli 🎧</footer>
+</div>
+<script>
+const menu=[
+ {name:'Qulupnay',emoji:'🍓',sound:'crunch'},{name:'Burger',emoji:'🍔',sound:'crunch'},
+ {name:'Ramen',emoji:'🍜',sound:'slurp'},{name:'Pitsa',emoji:'🍕',sound:'crunch'},
+ {name:'Donut',emoji:'🍩',sound:'soft'},{name:'Tarvuz',emoji:'🍉',sound:'crunch'},
+ {name:'Sushi',emoji:'🍣',sound:'soft'},{name:'Chips',emoji:'🥔',sound:'crunch'},
+ {name:'Muzqaymoq',emoji:'🍦',sound:'soft'}
+];
+let selected=0,bites=0,score=0,soundOn=true,volume=.6,audio;
+const $=id=>document.getElementById(id);
+function renderMenu(){
+ $('foods').innerHTML=menu.map((f,i)=>`<button class="food ${i===selected?'active':''}" data-i="${i}"><span class="emoji">${f.emoji}</span>${f.name}</button>`).join('');
+ document.querySelectorAll('.food').forEach(b=>b.onclick=()=>{selected=+b.dataset.i;bites=0;update();renderMenu();});
+}
+function update(){
+ const f=menu[selected],remaining=Math.max(0,100-bites*10);
+ $('foodEmoji').textContent=f.emoji;
+ $('foodEmoji').style.transform=`scale(${1-bites*.055}) rotate(${bites%2?8:-7}deg)`;
+ $('foodEmoji').style.opacity=remaining===0?.12:1;
+ $('percent').textContent=(100-remaining)+'%';$('fill').style.width=(100-remaining)+'%';
+ $('score').textContent=score;
+ $('mouth').style.height=bites%2? '21px':'13px';
+}
+function getAudio(){if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();return audio}
+function tone(freq,dur,type='sine',gain=.1,delay=0){
+ if(!soundOn||volume===0)return;
+ const a=getAudio(),o=a.createOscillator(),g=a.createGain();
+ o.type=type;o.frequency.setValueAtTime(freq,a.currentTime+delay);
+ g.gain.setValueAtTime(.0001,a.currentTime+delay);
+ g.gain.exponentialRampToValueAtTime(Math.max(.0002,gain*volume),a.currentTime+delay+.015);
+ g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+delay+dur);
+ o.connect(g);g.connect(a.destination);o.start(a.currentTime+delay);o.stop(a.currentTime+delay+dur+.02);
+}
+function noise(dur=.12,gain=.12,filter=1400){
+ if(!soundOn||volume===0)return;
+ const a=getAudio(),n=Math.floor(a.sampleRate*dur),buf=a.createBuffer(1,n,a.sampleRate),data=buf.getChannelData(0);
+ for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/n,1.5);
+ const src=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();
+ src.buffer=buf;f.type='lowpass';f.frequency.value=filter;g.gain.value=gain*volume;
+ src.connect(f);f.connect(g);g.connect(a.destination);src.start();
+}
+function asmr(kind){
+ if(!soundOn||volume===0)return;
+ if(kind==='crunch'){noise(.11,.22,2100);setTimeout(()=>noise(.08,.15,1700),90);tone(150,.1,'triangle',.045,.03)}
+ else if(kind==='slurp'){tone(340,.25,'sawtooth',.045);tone(260,.2,'sine',.035,.15);noise(.22,.07,800)}
+ else{tone(520,.09,'sine',.04);tone(390,.14,'sine',.035,.09);noise(.06,.04,900)}
+ // gentle chew rhythm
+ tone(95,.08,'triangle',.025,.23);tone(115,.07,'triangle',.02,.39);
+}
+function bite(){
+ if(bites>=10){bites=0;update();return}
+ bites++;score+=10;update();asmr(menu[selected].sound);
+ $('foodEmoji').classList.remove('bite');void $('foodEmoji').offsetWidth;$('foodEmoji').classList.add('bite');
+ $('pop').classList.remove('show');void $('pop').offsetWidth;$('pop').classList.add('show');
+ if(bites===10){score+=50;$('pop').textContent='🎉 YUMMY!';tone(660,.16,'sine',.06);tone(880,.2,'sine',.06,.15);setTimeout(()=>{alert('Ajoyib! '+menu[selected].name+' taomini tugatdingiz! Yana bir taom tanlang 😋');},250)}
+}
+$('eat').onclick=bite;
+$('reset').onclick=()=>{bites=0;update()};
+$('volume').oninput=e=>{volume=e.target.value/100;$('volLabel').textContent=e.target.value+'%'};
+$('soundToggle').onclick=()=>{soundOn=!soundOn;$('soundState').textContent=soundOn?'YOQILGAN':'O‘CHIRILGAN';$('soundToggle').textContent=soundOn?'Ovozni o‘chirish':'Ovozni yoqish'};
+renderMenu();update();
+</script>
+</body>
+</html>
